@@ -10,8 +10,8 @@ const CodeEditor = ({ value, onChange, language }) => {
 
   return (
     <MonacoEditor
-      width="800"
-      height="600"
+      width="99vw"
+      height="90vh"
       language={language}
       theme="vs-dark"
       value={value}

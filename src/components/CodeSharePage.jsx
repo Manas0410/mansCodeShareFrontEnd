@@ -5,6 +5,7 @@ import { useLocation, useParams } from "react-router-dom";
 import axios from "axios";
 
 const CodeSharePage = () => {
+  const [updateBtnEn, setUpdateBtnEn] = useState(false);
   const [codeData, setCodeData] = useState({
     languageName: "",
     sharedData: "",
@@ -38,17 +39,25 @@ const CodeSharePage = () => {
   //share code api call
   const shareCode = async () => {
     try {
+      setUpdateBtnEn(true);
       await axios.put(
         "https://manascodeshare.onrender.com/code/update",
         codeData
       );
       alert("Successfully updated code. Now you can share it!");
+      setUpdateBtnEn(false);
     } catch (error) {
       console.error("Error updating code:", error.message);
     }
   };
   return (
     <div>
+      <div className="header">
+        <h3>by MANAS</h3>
+        <button onClick={shareCode} disabled={updateBtnEn} className="bn5">
+          Share Code
+        </button>
+      </div>
       <div>
         <CodeEditor
           language={codeData.languageName}
@@ -57,18 +66,8 @@ const CodeSharePage = () => {
           editorDidMount={editorDidMount}
         />
       </div>
-      <button onClick={shareCode}>Share Code</button>
     </div>
   );
 };
 
 export default CodeSharePage;
-// languageName
-// :
-// "javascript"
-// sharedData
-// :
-// "manas Data after edit"
-// urlCode
-// :
-// "Manas1"
