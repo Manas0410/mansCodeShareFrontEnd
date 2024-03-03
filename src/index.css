@@ -101,11 +101,10 @@ h1 {
 }
 .header {
   display: flex;
+  padding: 21px 32px;
   justify-content: space-between;
-  background-color: #b2f5f55c;
-  height: 10vh;
-  align-items: center;
-  padding: 0 50px;
-  color: black;
-  font-size: 32px;
+  background-color: #293038;
+  color:#fff;
+  
+  font-size: 18px;
 }

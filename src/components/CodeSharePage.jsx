@@ -3,11 +3,12 @@ import { useEffect, useState } from "react";
 import CodeEditor from "../codeEditor/editor";
 import { useLocation, useParams } from "react-router-dom";
 import axios from "axios";
+import LangSelectorDropDown from "./LanguageSelector/LanguageSelector";
 
 const CodeSharePage = () => {
   const [updateBtnEn, setUpdateBtnEn] = useState(false);
   const [codeData, setCodeData] = useState({
-    languageName: "",
+    languageName: "python",
     sharedData: "",
     urlCode: "",
   });
@@ -53,7 +54,8 @@ const CodeSharePage = () => {
   return (
     <div>
       <div className="header">
-        <h3>by MANAS</h3>
+        <aside>Code Share</aside>
+        <LangSelectorDropDown codeData={codeData} setCodeData={setCodeData} />
         <button onClick={shareCode} disabled={updateBtnEn} className="bn5">
           Share Code
         </button>
