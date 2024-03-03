@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Languages } from "../../utils/languages";
 
 const LangSelectorDropDown = ({ codeData, setCodeData }) => {
   const [search, setSearch] = useState("");
   const [filteredLanguages, setFilteredLanguages] = useState([]);
+  const inpRef = useRef(null);
 
   useEffect(() => {
     const filtered = Languages.filter((lang) =>
@@ -45,6 +46,7 @@ const LangSelectorDropDown = ({ codeData, setCodeData }) => {
         })}
       </select>
       <input
+        ref={inpRef}
         type="text"
         onChange={searchHandler}
         style={{
