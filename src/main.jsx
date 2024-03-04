@@ -2,6 +2,7 @@ import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import HomePage from "./components/HomePage";
 import CodeSharePage from "./components/CodeSharePage";
+import Login from "./components/login/Login";
 
 const router = createBrowserRouter([
   {
@@ -11,6 +12,10 @@ const router = createBrowserRouter([
   {
     path: "/code",
     element: <CodeSharePage />,
+  },
+  {
+    path: "/test",
+    element: <Login />,
   },
 ]);
 
