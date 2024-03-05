@@ -4,6 +4,7 @@ import HomePage from "./components/HomePage";
 import CodeSharePage from "./components/CodeSharePage";
 import Login from "./components/login/Login";
 import { UserAuthContextProvider } from "./components/AuthContext/UserAuthContext";
+import TBD from "./tobedeleted/tbd";
 
 const router = createBrowserRouter([
   {
@@ -15,8 +16,12 @@ const router = createBrowserRouter([
     element: <CodeSharePage />,
   },
   {
-    path: "/test",
+    path: "/Login",
     element: <Login />,
+  },
+  {
+    path: "/test",
+    element: <TBD />,
   },
 ]);
 

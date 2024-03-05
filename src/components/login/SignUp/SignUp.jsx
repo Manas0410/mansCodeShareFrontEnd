@@ -44,52 +44,76 @@ const SignUpForm = () => {
   };
 
   return (
-    <div className="signup-form">
-      <h2>Sign Up</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="fullName">Full Name:</label>
-          <input
-            name="name"
-            type="text"
-            id="fullName"
-            value={fullName}
-            onChange={(e) => setFullName(e.target.value)}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="email">Email:</label>
-          <input
-            name="mail"
-            type="email"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="password">Password:</label>
-          <input
-            name="pwd"
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        <div>{error}</div>
-        <button type="submit" className="submit-btn">
-          Sign Up
-        </button>
-      </form>
-      <GoogleButton
-        className="g-btn"
-        type="dark"
-        onClick={handleGoogleSignIn}
-      />
+    <div
+      style={{
+        backgroundColor: "#121721",
+        display: "grid",
+        placeItems: "center",
+        height: "100vh",
+      }}
+    >
+      <div className="signup-form">
+        <h2>Create an account</h2>
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label htmlFor="fullName">Full Name:</label>
+            <input
+              name="name"
+              type="text"
+              id="fullName"
+              value={fullName}
+              onChange={(e) => setFullName(e.target.value)}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="email">Email:</label>
+            <input
+              name="mail"
+              type="email"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="password">Password:</label>
+            <input
+              name="pwd"
+              type="password"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          <div className="line"></div>
+          <div className="form-group" style={{ marginTop: 12 }}>
+            <GoogleButton
+              className="g-btn"
+              type="dark"
+              onClick={handleGoogleSignIn}
+              style={{ width: "435px" }}
+            />
+          </div>
+          <div>{error}</div>
+          <div className="btn-container">
+            <button type="submit" className="submit-btn">
+              Sign Up
+            </button>
+          </div>
+        </form>
+        <p className="new-text">
+          Already have an account?<span>{" SignIn here !"}</span>
+        </p>
+        {/* <GoogleButton
+          className="g-btn"
+          type="dark"
+          onClick={handleGoogleSignIn}
+          style={{ width: "435px" }}
+        /> */}
+      </div>
     </div>
   );
 };

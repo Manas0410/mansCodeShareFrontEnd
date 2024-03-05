@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./SignInForm.css"; // Import your CSS file for styling
 import { useUserAuth } from "../../AuthContext/UserAuthContext";
 import { useNavigate } from "react-router-dom";
+import GoogleButton from "react-google-button";
 
 const SignInForm = () => {
   // State variables to store form input values
@@ -26,35 +27,70 @@ const SignInForm = () => {
     setPassword("");
   };
 
+  const { googleSignIn } = useUserAuth();
+  const handleGoogleSignIn = async (e) => {
+    e.preventDefault();
+    try {
+      await googleSignIn();
+      navigate("/");
+    } catch (error) {
+      setError(error.message);
+
+      console.log(error.message);
+    }
+  };
   return (
-    <div className="signin-form">
-      <h2>Sign In</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="email">Email:</label>
-          <input
-            type="email"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="password">Password:</label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        <div> {error}</div>
-        <button type="submit" className="submit-btn">
-          Sign In
-        </button>
-      </form>
+    <div
+      style={{
+        backgroundColor: "#121721",
+        display: "grid",
+        placeItems: "center",
+        height: "100vh",
+      }}
+    >
+      <div className="signin-form">
+        <h2 className="form-heading">Sign in to CodeShare</h2>
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label htmlFor="email">Email address</label>
+            <input
+              type="email"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          <div className="line"></div>
+          <div className="form-group" style={{ marginTop: 12 }}>
+            <GoogleButton
+              className="g-btn"
+              type="dark"
+              onClick={handleGoogleSignIn}
+              style={{ width: "435px" }}
+            />
+          </div>
+          <div> {error}</div>
+          <div className="btn-container">
+            <button type="submit" className="submit-btn">
+              Sign In
+            </button>
+          </div>
+        </form>
+        <p className="new-text">
+          New to CodeShare?<span>{" SignUp now !"}</span>
+        </p>
+      </div>
     </div>
   );
 };
