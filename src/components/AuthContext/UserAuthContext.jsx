@@ -52,3 +52,20 @@ export function UserAuthContextProvider({ children }) {
     </userAuthContext.Provider>
   );
 }
+// const ProtectedRoute = ({ children }) => {
+//   const { user } = useUserAuth();
+
+//   console.log("Check user in Private: ", user);
+//   if (!user) {
+//     return <Navigate to="/" />;
+//   }
+//   return children;
+// };
+//  <Route
+//    path="/home"
+//    element={
+//      <ProtectedRoute>
+//        <Home />
+//      </ProtectedRoute>
+//    }
+//  />;
