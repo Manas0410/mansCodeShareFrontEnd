@@ -1,17 +1,27 @@
 import React, { useState } from "react";
 import "./SignInForm.css"; // Import your CSS file for styling
+import { useUserAuth } from "../../AuthContext/UserAuthContext";
+import { useNavigate } from "react-router-dom";
 
 const SignInForm = () => {
   // State variables to store form input values
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
+  const { logIn } = useUserAuth();
+  let navigate = useNavigate();
   // Function to handle form submission
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    // You can perform form validation and submit data to your backend here
-    console.log("Form submitted with:", { email, password });
-    // Clear form fields after submission
+    try {
+      await logIn(email, password);
+      navigate("/");
+    } catch (err) {
+      setError(err.message);
+      console.log("in err", err);
+    }
+
     setEmail("");
     setPassword("");
   };
@@ -40,6 +50,7 @@ const SignInForm = () => {
             required
           />
         </div>
+        <div> {error}</div>
         <button type="submit" className="submit-btn">
           Sign In
         </button>

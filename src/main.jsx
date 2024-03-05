@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import HomePage from "./components/HomePage";
 import CodeSharePage from "./components/CodeSharePage";
 import Login from "./components/login/Login";
+import { UserAuthContextProvider } from "./components/AuthContext/UserAuthContext";
 
 const router = createBrowserRouter([
   {
@@ -20,5 +21,7 @@ const router = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <RouterProvider router={router} />
+  <UserAuthContextProvider>
+    <RouterProvider router={router} />
+  </UserAuthContextProvider>
 );
