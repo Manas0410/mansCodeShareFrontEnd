@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { Languages } from "../../utils/languages";
+import "./langselector.css";
 
 const LangSelectorDropDown = ({ codeData, setCodeData }) => {
+  const { languageName = "Select Language" } = codeData;
   const [search, setSearch] = useState("");
   const [filteredLanguages, setFilteredLanguages] = useState([]);
   const inpRef = useRef(null);
@@ -20,43 +22,42 @@ const LangSelectorDropDown = ({ codeData, setCodeData }) => {
     } else {
       timer = setTimeout(() => {
         setSearch(event.target.value);
-      }, 1500);
+      }, 800);
     }
   };
 
-  const handleLanguageChange = (event) => {
+  const handleLanguageChange = (val) => {
     setCodeData((prev) => {
       let temp = { ...prev };
-      temp.languageName = event.target.value;
+      temp.languageName = val;
       return temp;
     });
   };
 
   return (
     <div style={{ position: "relative" }}>
-      <select value={codeData.languageName} onChange={handleLanguageChange}>
-        <option value="plaintext">Select Language</option>
-        <option value=""></option>
-        {filteredLanguages.map((item, i) => {
-          return (
-            <option key={i} value={item.value}>
-              {item.name}
-            </option>
-          );
-        })}
-      </select>
+      <div>{languageName}</div>
       <input
         ref={inpRef}
         type="text"
         onChange={searchHandler}
-        style={{
-          position: "absolute",
-          top: "-17px",
-          left: 0,
-          width: "100%",
-          zIndex: 1,
-        }}
+        className="lang-inp"
       />
+      <div className="LangDropdown">
+        {filteredLanguages.map((item, i) => {
+          return (
+            <div
+              key={i}
+              value={item.value}
+              onClick={() => {
+                handleLanguageChange(item.value);
+              }}
+            >
+              {item.name}
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 };

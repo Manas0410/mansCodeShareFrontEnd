@@ -4,18 +4,14 @@ import SignUpForm from "./SignUp/SignUp";
 import firebase from "../../utils/firebase";
 
 const Login = () => {
-  const [signUpFlag, setSignUpFlag] = useState(true);
+  const [signUpFlag, setSignUpFlag] = useState(false);
   return (
     <>
-      
-      <button
-        onClick={() => {
-          setSignUpFlag(!signUpFlag);
-        }}
-      >
-        togle
-      </button>
-      {signUpFlag ? <SignUpForm /> : <SignInForm />}
+      {signUpFlag ? (
+        <SignUpForm setSignUpFlag={setSignUpFlag} />
+      ) : (
+        <SignInForm setSignUpFlag={setSignUpFlag} />
+      )}
     </>
   );
 };

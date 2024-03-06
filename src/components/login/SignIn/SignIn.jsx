@@ -4,7 +4,7 @@ import { useUserAuth } from "../../AuthContext/UserAuthContext";
 import { useNavigate } from "react-router-dom";
 import GoogleButton from "react-google-button";
 
-const SignInForm = () => {
+const SignInForm = ({ setSignUpFlag }) => {
   // State variables to store form input values
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -88,7 +88,8 @@ const SignInForm = () => {
           </div>
         </form>
         <p className="new-text">
-          New to CodeShare?<span>{" SignUp now !"}</span>
+          New to CodeShare?
+          <span onClick={() => setSignUpFlag(true)}>{" SignUp now !"}</span>
         </p>
       </div>
     </div>

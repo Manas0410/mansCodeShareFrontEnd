@@ -4,7 +4,7 @@ import { useUserAuth } from "../../AuthContext/UserAuthContext";
 import { useNavigate } from "react-router-dom";
 import GoogleButton from "react-google-button";
 
-const SignUpForm = () => {
+const SignUpForm = ({ setSignUpFlag }) => {
   // State variables to store form input values
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
@@ -105,7 +105,8 @@ const SignUpForm = () => {
           </div>
         </form>
         <p className="new-text">
-          Already have an account?<span>{" SignIn here !"}</span>
+          Already have an account?
+          <span onClick={() => setSignUpFlag(false)}>{" SignIn here !"}</span>
         </p>
         {/* <GoogleButton
           className="g-btn"
