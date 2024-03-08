@@ -31,21 +31,23 @@ const HomePage = () => {
   };
 
   return (
-    <div style={{ position: "relative", height: "100vh", width: "100vw" }}>
-      <div className="homeContainer"></div>
-      <div className="homepage">
-        <h1>Code Share by MANAS</h1>
-        <div>
-          <button
-            onClick={shareCode}
-            disabled={shareButtonEnable}
-            className="bn5"
-          >
-            Share Code
-          </button>
+    <>
+      <div style={{ position: "relative", height: "100vh", width: "100vw" }}>
+        <div className="homeContainer"></div>
+        <div className="homepage">
+          <h1>Code Share by MANAS</h1>
+          <div>
+            <button
+              onClick={shareCode}
+              disabled={shareButtonEnable}
+              className="bn5"
+            >
+              Share Code
+            </button>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

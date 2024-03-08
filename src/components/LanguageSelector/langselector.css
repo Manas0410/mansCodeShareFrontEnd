@@ -25,7 +25,7 @@
   border-bottom: none;
 }
 .langdropdown-list {
-  height: 260px;
+  height: 175px;
   overflow-y: auto;
 }
 ::-webkit-scrollbar {
@@ -43,6 +43,26 @@
   border-radius: 10px;
   background: #243047;
 }
+
 .langdropdown-heading {
   background-color: black;
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 20px;
+  margin-bottom: 2px;
+  border-radius: 6px;
+  width: 360px;
+  box-sizing: border-box;
+}
+.langdropdown-list div {
+  cursor: pointer;
+}
+.langdropdown-list div:hover {
+  color: #f5b215;
+}
+.LangDropdown {
+  position: absolute;
+  left: 0;
+  top: 43px;
+  z-index: 100;
 }

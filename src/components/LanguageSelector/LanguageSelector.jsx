@@ -7,6 +7,7 @@ const LangSelectorDropDown = ({ codeData, setCodeData }) => {
   const [search, setSearch] = useState("");
   const [filteredLanguages, setFilteredLanguages] = useState([]);
   const inpRef = useRef(null);
+  const [listTogler, setListTogler] = useState(false);
 
   useEffect(() => {
     const filtered = Languages.filter((lang) =>
@@ -36,30 +37,41 @@ const LangSelectorDropDown = ({ codeData, setCodeData }) => {
 
   return (
     <div style={{ position: "relative" }}>
-      <div className="langdropdown-heading">{languageName}</div>
-      <div className="LangDropdown">
-        <input
-          ref={inpRef}
-          type="text"
-          onChange={searchHandler}
-          className="lang-inp"
-        />
-        <div className="langdropdown-list">
-          {filteredLanguages.map((item, i) => {
-            return (
-              <div
-                key={i}
-                value={item.value}
-                onClick={() => {
-                  handleLanguageChange(item.value);
-                }}
-              >
-                {item.name}
-              </div>
-            );
-          })}
+      <div
+        className="langdropdown-heading"
+        onClick={() => setListTogler(!listTogler)}
+      >
+        <div>{languageName}</div>
+        <div>
+          <span class="material-symbols-outlined">expand_more</span>
         </div>
       </div>
+      {listTogler && (
+        <div className="LangDropdown">
+          <input
+            ref={inpRef}
+            type="text"
+            onChange={searchHandler}
+            className="lang-inp"
+          />
+          <div className="langdropdown-list">
+            {filteredLanguages.map((item, i) => {
+              return (
+                <div
+                  key={i}
+                  value={item.value}
+                  onClick={() => {
+                    handleLanguageChange(item.value);
+                    setListTogler(false);
+                  }}
+                >
+                  {item.name}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
     </div>
   );
 };
