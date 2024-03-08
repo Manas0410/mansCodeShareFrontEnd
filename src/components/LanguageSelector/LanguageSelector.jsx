@@ -36,27 +36,29 @@ const LangSelectorDropDown = ({ codeData, setCodeData }) => {
 
   return (
     <div style={{ position: "relative" }}>
-      <div>{languageName}</div>
-      <input
-        ref={inpRef}
-        type="text"
-        onChange={searchHandler}
-        className="lang-inp"
-      />
+      <div className="langdropdown-heading">{languageName}</div>
       <div className="LangDropdown">
-        {filteredLanguages.map((item, i) => {
-          return (
-            <div
-              key={i}
-              value={item.value}
-              onClick={() => {
-                handleLanguageChange(item.value);
-              }}
-            >
-              {item.name}
-            </div>
-          );
-        })}
+        <input
+          ref={inpRef}
+          type="text"
+          onChange={searchHandler}
+          className="lang-inp"
+        />
+        <div className="langdropdown-list">
+          {filteredLanguages.map((item, i) => {
+            return (
+              <div
+                key={i}
+                value={item.value}
+                onClick={() => {
+                  handleLanguageChange(item.value);
+                }}
+              >
+                {item.name}
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );
