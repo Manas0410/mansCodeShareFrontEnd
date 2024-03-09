@@ -4,6 +4,7 @@ import CodeEditor from "../codeEditor/editor";
 import { useLocation, useParams } from "react-router-dom";
 import axios from "axios";
 import LangSelectorDropDown from "./LanguageSelector/LanguageSelector";
+import IsEditable from "./isEditable/ISEditable";
 
 const CodeSharePage = () => {
   const [updateBtnEn, setUpdateBtnEn] = useState(false);
@@ -54,11 +55,39 @@ const CodeSharePage = () => {
   return (
     <div>
       <div className="header">
-        <aside>Code Share</aside>
-        <LangSelectorDropDown codeData={codeData} setCodeData={setCodeData} />
-        <button onClick={shareCode} disabled={updateBtnEn} className="bn5">
-          Share Code
-        </button>
+        <span
+          style={{
+            fontFamily: "manrope",
+            letterSpacing: "6px",
+            fontSize: "24px",
+            textAlign: "center",
+            fontWeight: 900,
+          }}
+        >
+          MSxShare
+        </span>
+        <div style={{ display: "flex", gap: 20, justifyContent: "flex-end" }}>
+          <LangSelectorDropDown codeData={codeData} setCodeData={setCodeData} />
+          <button
+            onClick={shareCode}
+            disabled={updateBtnEn}
+            className="bn5"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              fontFamily: "manrope",
+              width: 50,
+              height: 0,
+              fontSize: 15,
+              background: "black",
+            }}
+          >
+            Share
+          </button>
+        </div>
+        <div className="editablePlaced">
+          <IsEditable />
+        </div>
       </div>
       <div>
         <CodeEditor

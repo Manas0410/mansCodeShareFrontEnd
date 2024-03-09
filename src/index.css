@@ -94,16 +94,25 @@ h1 {
   position: absolute;
   width: 100%;
   height: 100%;
-  background: #191919;
+  background: black;
   left: 0;
   top: 0;
   border-radius: 10px;
 }
 .header {
   display: flex;
-  padding: 21px 32px;
+  padding: 0 32px;
   justify-content: space-between;
   background-color: #121721;
   color: #fff;
   font-size: 18px;
+  align-items: center;
+  height: 68px;
+  position: relative;
+}
+.editablePlaced {
+  position: absolute;
+  right: 32px;
+  top: 88px;
+  z-index: 10000;
 }

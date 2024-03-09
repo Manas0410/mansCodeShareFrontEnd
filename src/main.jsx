@@ -5,6 +5,7 @@ import CodeSharePage from "./components/CodeSharePage";
 import Login from "./components/login/Login";
 import { UserAuthContextProvider } from "./components/AuthContext/UserAuthContext";
 import TBD from "./tobedeleted/tbd";
+import IsEditable from "./components/isEditable/ISEditable";
 
 const router = createBrowserRouter([
   {
@@ -21,7 +22,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/test",
-    element: <TBD />,
+    element: <IsEditable />,
   },
 ]);
 
