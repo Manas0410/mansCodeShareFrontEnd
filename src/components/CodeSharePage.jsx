@@ -9,7 +9,6 @@ import { useUserAuth } from "./AuthContext/UserAuthContext";
 
 const CodeSharePage = () => {
   const { user } = useUserAuth();
-  console.log(user.uid, "sp");
   const [updateBtnEn, setUpdateBtnEn] = useState(false);
   const [codeData, setCodeData] = useState({
     languageName: "python",
@@ -45,7 +44,7 @@ const CodeSharePage = () => {
   console.log(codeData);
   //share code api call
   const shareCode = async () => {
-    if (user.uid !== codeData.userId && !codeData.isEditable) {
+    if (user?.uid !== codeData.userId && !codeData.isEditable) {
       alert("u dont hv permission to edit this code");
       return;
     } else {
@@ -95,7 +94,7 @@ const CodeSharePage = () => {
             Share
           </button>
         </div>
-        {user.uid === codeData.userId && (
+        {user?.uid === codeData.userId && (
           <div className="editablePlaced">
             <IsEditable
               isEditable={codeData.isEditable}

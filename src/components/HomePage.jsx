@@ -13,7 +13,7 @@ const HomePage = () => {
     sharedData: "start sharing data (remove this line)",
     languageName: "javascript",
     isEditable: true,
-    userId: user.uid,
+    userId: user?.uid,
   };
   const [shareButtonEnable, setShareButtonEnable] = useState(false);
   const navigate = useNavigate();
