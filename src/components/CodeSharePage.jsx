@@ -59,7 +59,8 @@ const CodeSharePage = () => {
   console.log(getEditableState(cValue), "est");
   //share code api call
   const shareCode = async () => {
-    if (user?.uid !== codeData.userId && !getEditableState(cValue)) {
+    let isEditable1 = await getEditableState(cValue);
+    if (user?.uid !== codeData.userId && !isEditable1) {
       alert("u dont hv permission to edit this code");
       return;
     } else {
