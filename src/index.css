@@ -119,10 +119,13 @@ h1 {
 .logout-button {
   background: #00abff;
   color: white;
-  padding: 6px 16px;
+  padding: 9px 16px;
   border-radius: 8px;
+  height: 20px;
+  cursor: pointer;
+}
+.logOut-container {
   position: absolute;
   top: 12px;
   right: 12px;
-  cursor: pointer;
 }

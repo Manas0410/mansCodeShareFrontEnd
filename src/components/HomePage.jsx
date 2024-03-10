@@ -110,7 +110,9 @@ const HomePage = () => {
       >
         About Developer
       </a>
-      <LogOut />
+      <div className="logOut-container">
+        <LogOut />
+      </div>
     </div>
   );
 };

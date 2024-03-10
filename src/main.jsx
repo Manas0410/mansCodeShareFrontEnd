@@ -19,11 +19,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/code",
-    element: (
-      <ProtectedRoute>
-        <CodeSharePage />
-      </ProtectedRoute>
-    ),
+    element: <CodeSharePage />,
   },
   {
     path: "/login",

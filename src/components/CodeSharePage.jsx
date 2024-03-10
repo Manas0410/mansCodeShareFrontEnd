@@ -6,6 +6,7 @@ import axios from "axios";
 import LangSelectorDropDown from "./LanguageSelector/LanguageSelector";
 import IsEditable from "./isEditable/ISEditable";
 import { useUserAuth } from "./AuthContext/UserAuthContext";
+import LogOut from "../LogOut/LogOut";
 
 const CodeSharePage = () => {
   const { user } = useUserAuth();
@@ -106,6 +107,7 @@ const CodeSharePage = () => {
           >
             Share
           </button>
+          <LogOut />
         </div>
         {user?.uid === codeData.userId && (
           <div className="editablePlaced">
