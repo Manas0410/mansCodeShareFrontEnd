@@ -43,6 +43,7 @@ const CodeSharePage = () => {
   }, [cValue]);
 
   console.log(codeData);
+
   //to get latest editable state val
   const getEditableState = async (cValue) => {
     try {
@@ -55,10 +56,10 @@ const CodeSharePage = () => {
       return false; // Default to false if an error occurs
     }
   };
-  console.log(getEditableState(), "est");
+  console.log(getEditableState(cValue), "est");
   //share code api call
   const shareCode = async () => {
-    if (user?.uid !== codeData.userId && !getEditableState()) {
+    if (user?.uid !== codeData.userId && !getEditableState(cValue)) {
       alert("u dont hv permission to edit this code");
       return;
     } else {

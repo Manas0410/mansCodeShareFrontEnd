@@ -121,8 +121,13 @@ h1 {
   color: white;
   padding: 9px 16px;
   border-radius: 8px;
-  height: 20px;
+  height: 23px;
   cursor: pointer;
+  width: 95px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
 }
 .logOut-container {
   position: absolute;
