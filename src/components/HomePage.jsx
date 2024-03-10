@@ -3,12 +3,17 @@ import { useNavigate } from "react-router-dom";
 import { generateUniqueCode } from "../utils/UniqueCode";
 import { useState } from "react";
 import "./Styles/Homepage.styles.css";
+import { useUserAuth } from "./AuthContext/UserAuthContext";
 
 const HomePage = () => {
+  const { user } = useUserAuth();
+  console.log(user, "xxxxxxxxxxxxxxxxxxx");
   const payloadcode = {
     urlCode: "manas1",
     sharedData: "start sharing data (remove this line)",
     languageName: "javascript",
+    isEditable: true,
+    userId: user.uid,
   };
   const [shareButtonEnable, setShareButtonEnable] = useState(false);
   const navigate = useNavigate();

@@ -5,13 +5,18 @@ import { useLocation, useParams } from "react-router-dom";
 import axios from "axios";
 import LangSelectorDropDown from "./LanguageSelector/LanguageSelector";
 import IsEditable from "./isEditable/ISEditable";
+import { useUserAuth } from "./AuthContext/UserAuthContext";
 
 const CodeSharePage = () => {
+  const { user } = useUserAuth();
+  console.log(user.uid, "sp");
   const [updateBtnEn, setUpdateBtnEn] = useState(false);
   const [codeData, setCodeData] = useState({
     languageName: "python",
     sharedData: "",
     urlCode: "",
+    isEditable: true,
+    userId: "xxx",
   });
   // function to handle editor value
   const handleCodeChange = (newValue) => {
@@ -40,16 +45,21 @@ const CodeSharePage = () => {
   console.log(codeData);
   //share code api call
   const shareCode = async () => {
-    try {
-      setUpdateBtnEn(true);
-      await axios.put(
-        "https://manascodeshare.onrender.com/code/update",
-        codeData
-      );
-      alert("Successfully updated code. Now you can share it!");
-      setUpdateBtnEn(false);
-    } catch (error) {
-      console.error("Error updating code:", error.message);
+    if (user.uid !== codeData.userId && !codeData.isEditable) {
+      alert("u dont hv permission to edit this code");
+      return;
+    } else {
+      try {
+        setUpdateBtnEn(true);
+        await axios.put(
+          "https://manascodeshare.onrender.com/code/update",
+          codeData
+        );
+        alert("Successfully updated code. Now you can share it!");
+        setUpdateBtnEn(false);
+      } catch (error) {
+        console.error("Error updating code:", error.message);
+      }
     }
   };
   return (
@@ -85,9 +95,14 @@ const CodeSharePage = () => {
             Share
           </button>
         </div>
-        <div className="editablePlaced">
-          <IsEditable />
-        </div>
+        {user.uid === codeData.userId && (
+          <div className="editablePlaced">
+            <IsEditable
+              isEditable={codeData.isEditable}
+              setCodeData={setCodeData}
+            />
+          </div>
+        )}
       </div>
       <div>
         <CodeEditor

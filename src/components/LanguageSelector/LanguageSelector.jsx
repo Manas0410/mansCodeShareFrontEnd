@@ -43,7 +43,7 @@ const LangSelectorDropDown = ({ codeData, setCodeData }) => {
       >
         <div>{languageName}</div>
         <div>
-          <span class="material-symbols-outlined">expand_more</span>
+          <span className="material-symbols-outlined">expand_more</span>
         </div>
       </div>
       {listTogler && (
