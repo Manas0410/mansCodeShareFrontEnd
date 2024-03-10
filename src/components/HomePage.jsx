@@ -4,6 +4,7 @@ import { generateUniqueCode } from "../utils/UniqueCode";
 import { useState } from "react";
 import "./Styles/Homepage.styles.css";
 import { useUserAuth } from "./AuthContext/UserAuthContext";
+import LogOut from "../LogOut/LogOut";
 
 const HomePage = () => {
   const { user } = useUserAuth();
@@ -109,6 +110,7 @@ const HomePage = () => {
       >
         About Developer
       </a>
+      <LogOut />
     </div>
   );
 };

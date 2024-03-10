@@ -116,3 +116,13 @@ h1 {
   top: 88px;
   z-index: 10000;
 }
+.logout-button {
+  background: #00abff;
+  color: white;
+  padding: 6px 16px;
+  border-radius: 8px;
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  cursor: pointer;
+}

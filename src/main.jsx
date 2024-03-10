@@ -6,23 +6,28 @@ import Login from "./components/login/Login";
 import { UserAuthContextProvider } from "./components/AuthContext/UserAuthContext";
 import TBD from "./tobedeleted/tbd";
 import IsEditable from "./components/isEditable/ISEditable";
+import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <HomePage />,
+    element: (
+      <ProtectedRoute>
+        <HomePage />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/code",
-    element: <CodeSharePage />,
+    element: (
+      <ProtectedRoute>
+        <CodeSharePage />
+      </ProtectedRoute>
+    ),
   },
   {
-    path: "/Login",
+    path: "/login",
     element: <Login />,
-  },
-  {
-    path: "/test",
-    element: <IsEditable />,
   },
 ]);
 

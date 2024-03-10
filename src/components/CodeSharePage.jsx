@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import CodeEditor from "../codeEditor/editor";
 import { useLocation, useParams } from "react-router-dom";
 import axios from "axios";
@@ -42,9 +42,22 @@ const CodeSharePage = () => {
   }, [cValue]);
 
   console.log(codeData);
+  //to get latest editable state val
+  const getEditableState = async (cValue) => {
+    try {
+      const response = await axios.get(
+        `https://manascodeshare.onrender.com/code/get?urlCode=${cValue}`
+      );
+      return response.data.isEditable;
+    } catch (error) {
+      console.error("Error fetching editable state:", error);
+      return false; // Default to false if an error occurs
+    }
+  };
+  console.log(getEditableState(), "est");
   //share code api call
   const shareCode = async () => {
-    if (user?.uid !== codeData.userId && !codeData.isEditable) {
+    if (user?.uid !== codeData.userId && !getEditableState()) {
       alert("u dont hv permission to edit this code");
       return;
     } else {
