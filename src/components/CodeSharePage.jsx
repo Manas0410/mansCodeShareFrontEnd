@@ -7,7 +7,9 @@ import LangSelectorDropDown from "./LanguageSelector/LanguageSelector";
 import IsEditable from "./isEditable/ISEditable";
 import { useUserAuth } from "./AuthContext/UserAuthContext";
 import LogOut from "../LogOut/LogOut";
+import io from "socket.io-client";
 
+const socket = io("https://manascodeshare.onrender.com/");
 const CodeSharePage = () => {
   const { user } = useUserAuth();
   const [updateBtnEn, setUpdateBtnEn] = useState(false);
@@ -19,12 +21,22 @@ const CodeSharePage = () => {
     userId: "xxx",
   });
   // function to handle editor value
-  const handleCodeChange = (newValue) => {
+  const handleCodeChange = async (newValue, event) => {
     setCodeData((prev) => {
       let temp = { ...prev };
       temp.sharedData = newValue;
       return temp;
     });
+    console.log(event.changes[0].text, "mainn");
+    console.log(event);
+    let timer;
+    // if (timer) {
+    //   clearTimeout(timer);
+    // }
+    // timer = setTimeout(() => {
+    await shareCode();
+    socket.emit("send_message", { message: "Hello from client" });
+    // }, 0);
   };
   const editorDidMount = (editor, monaco) => {
     console.log("editorDidMount", editor);
@@ -40,7 +52,16 @@ const CodeSharePage = () => {
     axios
       .get(`https://manascodeshare.onrender.com/code/get?urlCode=${cValue}`)
       .then((data) => setCodeData(data.data));
-  }, [cValue]);
+  }, []);
+
+  // socket data
+  useEffect(() => {
+    socket.on("receive_message", () => {
+      axios
+        .get(`https://manascodeshare.onrender.com/code/get?urlCode=${cValue}`)
+        .then((data) => setCodeData(data.data));
+    });
+  }, [socket]);
 
   console.log(codeData);
 
@@ -56,7 +77,7 @@ const CodeSharePage = () => {
       return false; // Default to false if an error occurs
     }
   };
-  console.log(getEditableState(cValue), "est");
+
   //share code api call
   const shareCode = async () => {
     let isEditable1 = await getEditableState(cValue);
@@ -70,7 +91,7 @@ const CodeSharePage = () => {
           "https://manascodeshare.onrender.com/code/update",
           codeData
         );
-        alert("Successfully updated code. Now you can share it!");
+        // alert("Successfully updated code. Now you can share it!");
         setUpdateBtnEn(false);
       } catch (error) {
         console.error("Error updating code:", error.message);
