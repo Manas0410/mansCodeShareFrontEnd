@@ -1,5 +1,5 @@
-/* eslint-disable no-unused-vars */
-import { useEffect, useMemo, useState } from "react";
+// /* eslint-disable no-unused-vars */
+import { useEffect, useMemo, useState, useRef } from "react";
 import CodeEditor from "../codeEditor/editor";
 import { useLocation, useParams } from "react-router-dom";
 import axios from "axios";
@@ -11,6 +11,7 @@ import io from "socket.io-client";
 
 const socket = io("https://manascodeshare.onrender.com/");
 const CodeSharePage = () => {
+  const timerRef = useRef();
   const { user } = useUserAuth();
   const [updateBtnEn, setUpdateBtnEn] = useState(false);
   const [codeData, setCodeData] = useState({
@@ -20,24 +21,21 @@ const CodeSharePage = () => {
     isEditable: true,
     userId: "xxx",
   });
+  const [emitEnable, setEmitEnable] = useState(true);
   // function to handle editor value
-  const handleCodeChange = async (newValue, event) => {
-    setCodeData((prev) => {
-      let temp = { ...prev };
-      temp.sharedData = newValue;
-      return temp;
-    });
-    console.log(event.changes[0].text, "mainn");
-    console.log(event);
-    let timer;
-    // if (timer) {
-    //   clearTimeout(timer);
-    // }
-    // timer = setTimeout(() => {
-    await shareCode();
-    socket.emit("send_message", { message: "Hello from client" });
-    // }, 0);
+  useEffect(() => {
+    if (emitEnable) {
+      if (codeData.sharedData) {
+        shareCode();
+        socket.emit("send_message", { message: "Hello from client" });
+      }
+    }
+  }, [codeData.sharedData, emitEnable]);
+
+  const handleCodeChange = (newValue, event) => {
+    setCodeData((prev) => ({ ...prev, sharedData: newValue }));
   };
+
   const editorDidMount = (editor, monaco) => {
     console.log("editorDidMount", editor);
     editor.focus();
@@ -57,9 +55,11 @@ const CodeSharePage = () => {
   // socket data
   useEffect(() => {
     socket.on("receive_message", () => {
+      setEmitEnable(false);
       axios
         .get(`https://manascodeshare.onrender.com/code/get?urlCode=${cValue}`)
-        .then((data) => setCodeData(data.data));
+        .then((data) => setCodeData(data.data))
+        .then(setEmitEnable(true));
     });
   }, [socket]);
 
@@ -81,6 +81,7 @@ const CodeSharePage = () => {
   //share code api call
   const shareCode = async () => {
     let isEditable1 = await getEditableState(cValue);
+    console.log("codeData", codeData);
     if (user?.uid !== codeData.userId && !isEditable1) {
       alert("u dont hv permission to edit this code");
       return;
