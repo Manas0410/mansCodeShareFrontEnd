@@ -1,5 +1,5 @@
 import Editor from "@monaco-editor/react";
-const CodeEditor = ({ value, onChange, language, readOnly }) => {
+const CodeEditor = ({ value, onChange, language = "plaintext", readOnly }) => {
   return (
     <>
       <Editor

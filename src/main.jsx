@@ -7,6 +7,7 @@ import { UserAuthContextProvider } from "./components/AuthContext/UserAuthContex
 import TBD from "./tobedeleted/tbd";
 import IsEditable from "./components/isEditable/ISEditable";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
+import CodeSharePageV1 from "./components/CodeSharePageV1";
 
 const router = createBrowserRouter([
   {
@@ -19,7 +20,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/code",
-    element: <CodeSharePage />,
+    element: <CodeSharePageV1 />,
   },
   {
     path: "/login",
