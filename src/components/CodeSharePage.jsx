@@ -10,6 +10,7 @@ import LogOut from "../LogOut/LogOut";
 import io from "socket.io-client";
 
 const socket = io("https://manascodeshare.onrender.com/");
+
 const CodeSharePage = () => {
   const timerRef = useRef();
   const { user } = useUserAuth();
@@ -21,16 +22,20 @@ const CodeSharePage = () => {
     isEditable: true,
     userId: "xxx",
   });
+
   const [emitEnable, setEmitEnable] = useState(true);
+
   // function to handle editor value
   useEffect(() => {
-    if (emitEnable) {
-      if (codeData.sharedData) {
-        shareCode();
-        socket.emit("send_message", { message: "Hello from client" });
-      }
+    if (codeData.sharedData) {
+      // if (user?.uid !== codeData.userId && !isEditable1) return;
+      axios
+        .put("https://manascodeshare.onrender.com/code/update", codeData)
+        .then(() =>
+          socket.emit("send_message", { message: "Hello from client" })
+        );
     }
-  }, [codeData.sharedData, emitEnable]);
+  }, [codeData]);
 
   const handleCodeChange = (newValue, event) => {
     setCodeData((prev) => ({ ...prev, sharedData: newValue }));
@@ -55,11 +60,11 @@ const CodeSharePage = () => {
   // socket data
   useEffect(() => {
     socket.on("receive_message", () => {
-      setEmitEnable(false);
+      // setEmitEnable(false);
       axios
         .get(`https://manascodeshare.onrender.com/code/get?urlCode=${cValue}`)
-        .then((data) => setCodeData(data.data))
-        .then(setEmitEnable(true));
+        .then((data) => setCodeData(data.data));
+      // .then(setEmitEnable(true));
     });
   }, [socket]);
 
@@ -78,7 +83,7 @@ const CodeSharePage = () => {
     }
   };
 
-  //share code api call
+  // share code api call
   const shareCode = async () => {
     let isEditable1 = await getEditableState(cValue);
     console.log("codeData", codeData);
@@ -99,6 +104,7 @@ const CodeSharePage = () => {
       }
     }
   };
+
   return (
     <div>
       <div className="header">
@@ -144,6 +150,7 @@ const CodeSharePage = () => {
       </div>
       <div>
         <CodeEditor
+          readOnly={user?.uid !== codeData.userId && !codeData.isEditable}
           language={codeData.languageName}
           value={codeData.sharedData}
           onChange={handleCodeChange}
