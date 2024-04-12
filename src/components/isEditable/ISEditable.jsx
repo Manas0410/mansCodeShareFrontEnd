@@ -1,13 +1,5 @@
 import "./isEditable.css";
-const IsEditable = ({ isEditable, setCodeData }) => {
-  const handleCheckboxChange = (event) => {
-    setCodeData((prev) => {
-      return {
-        ...prev,
-        ["isEditable"]: !isEditable,
-      };
-    });
-  };
+const IsEditable = ({ isEditable, editToggle }) => {
   return (
     <div className="togller-container">
       <span>Allow Editting</span>
@@ -17,7 +9,7 @@ const IsEditable = ({ isEditable, setCodeData }) => {
           name="toggler-1"
           type="checkbox"
           checked={isEditable}
-          onChange={handleCheckboxChange}
+          onClick={() => editToggle(isEditable)}
         />
         <label htmlFor="toggler-1">
           <svg

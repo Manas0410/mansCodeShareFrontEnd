@@ -58,6 +58,40 @@ const CodeSharePageV1 = () => {
   //   additional data
   const { user } = useUserAuth();
 
+  // function for editable togle state change
+  const editToggle = (flag) => {
+    setCodeData((prev) => {
+      return {
+        ...prev,
+        ["isEditable"]: !flag,
+      };
+    });
+    const updatedDataToSend = { ...codeData, isEditable: !flag };
+
+    axios
+      .put(`${baseUrl}code/update`, updatedDataToSend)
+      .then(() =>
+        socket.emit("send_message", { message: "Hello from client" })
+      );
+  };
+
+  // function for lang change
+  const langChange = (lang) => {
+    setCodeData((prev) => {
+      return {
+        ...prev,
+        ["languageName"]: lang,
+      };
+    });
+    const updatedDataToSend = { ...codeData, languageName: lang };
+
+    axios
+      .put(`${baseUrl}code/update`, updatedDataToSend)
+      .then(() =>
+        socket.emit("send_message", { message: "Hello from client" })
+      );
+  };
+
   return (
     <div>
       <div className="header">
@@ -73,7 +107,7 @@ const CodeSharePageV1 = () => {
           MSxShare
         </span>
         <div style={{ display: "flex", gap: 20, justifyContent: "flex-end" }}>
-          <LangSelectorDropDown codeData={codeData} setCodeData={setCodeData} />
+          <LangSelectorDropDown codeData={codeData} langChange={langChange} />
 
           <LogOut />
         </div>
@@ -81,17 +115,16 @@ const CodeSharePageV1 = () => {
           <div className="editablePlaced">
             <IsEditable
               isEditable={codeData.isEditable}
-              setCodeData={setCodeData}
+              editToggle={editToggle}
             />
           </div>
         )}
       </div>
       <CodeEditor
-        readOnly={false}
+        readOnly={user?.uid !== codeData.userId && !codeData.isEditable}
         language={codeData.languageName}
         value={codeData.sharedData}
         onChange={handleCodeChange}
-        // editorDidMount={editorDidMount}
       />
     </div>
   );

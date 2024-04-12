@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Languages } from "../../utils/languages";
 import "./langselector.css";
 
-const LangSelectorDropDown = ({ codeData, setCodeData }) => {
+const LangSelectorDropDown = ({ codeData, langChange }) => {
   const { languageName = "Select Language" } = codeData;
   const [search, setSearch] = useState("");
   const [filteredLanguages, setFilteredLanguages] = useState([]);
@@ -25,14 +25,6 @@ const LangSelectorDropDown = ({ codeData, setCodeData }) => {
         setSearch(event.target.value);
       }, 800);
     }
-  };
-
-  const handleLanguageChange = (val) => {
-    setCodeData((prev) => {
-      let temp = { ...prev };
-      temp.languageName = val;
-      return temp;
-    });
   };
 
   return (
@@ -61,7 +53,7 @@ const LangSelectorDropDown = ({ codeData, setCodeData }) => {
                   key={i}
                   value={item.value}
                   onClick={() => {
-                    handleLanguageChange(item.value);
+                    langChange(item.value);
                     setListTogler(false);
                   }}
                 >
