@@ -10,7 +10,8 @@ import LogOut from "../LogOut/LogOut";
 import { useUserAuth } from "./AuthContext/UserAuthContext";
 import IsEditable from "./isEditable/ISEditable";
 
-const baseUrl = "https://manascodeshare.onrender.com/";
+// const baseUrl = "https://manascodeshare.onrender.com/";
+const baseUrl = "https://codeshare-weld.vercel.app/";
 const socket = io(baseUrl);
 
 const CodeSharePageV1 = () => {
